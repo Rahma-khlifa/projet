@@ -1,27 +1,26 @@
 package com.example.demo.entities;
 
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
+import java.util.List;
+
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "etudiants")
 public class Etudiant extends User{
     
     private String niveauEtude;
     private String filiere;
     
+    @OneToMany(mappedBy = "etudiant", cascade = CascadeType.ALL)
+    private List<Probleme> problemes;
+    
+    @OneToMany(mappedBy = "etudiant", cascade = CascadeType.ALL)
+    private List<Reponse> reponses;
 
-	/**
-	 * 
-	 */
 	public Etudiant() {
 		super();
-		// TODO Auto-generated constructor stub
-	}
 
-	/**
-	 * @param niveauEtude
-	 * @param filiere
-	 */
+	}
 	public Etudiant(String niveauEtude, String filiere) {
 		super();
 		this.niveauEtude = niveauEtude;
@@ -43,5 +42,35 @@ public class Etudiant extends User{
 	public void setFiliere(String filiere) {
 		this.filiere = filiere;
 	}
+	
+	 // Getters and Setters
+    public List<Probleme> getProblemes() {
+        return problemes;
+    }
+    
+    public void setProblemes(List<Probleme> problemes) {
+        this.problemes = problemes;
+    }
+    
+    public List<Reponse> getReponses() {
+        return reponses;
+    }
+    
+    public void setReponses(List<Reponse> reponses) {
+        this.reponses = reponses;
+    }
+    
+    public Probleme publierProbleme(String titre, String description) {
+        Probleme probleme = new Probleme(titre, description);
+        probleme.setEtudiant(this);
+        return probleme;
+    }
+    
+    public Reponse repondreProbleme(Probleme probleme, String contenu) {
+        Reponse reponse = new Reponse(contenu);
+        reponse.setEtudiant(this);
+        reponse.setProbleme(probleme);
+        return reponse;
+    }
   
 }

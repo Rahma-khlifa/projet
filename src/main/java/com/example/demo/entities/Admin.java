@@ -23,7 +23,7 @@ public class Admin extends User {
 	 * @param motDePasse
 	 * @param nom
 	 */
-	public Admin(Long id, String email, String motDePasse, String nom) {
+	public Admin(int id, String email, String motDePasse, String nom) {
 		super(id, email, motDePasse, nom);
 		// TODO Auto-generated constructor stub
 	}
@@ -35,7 +35,7 @@ public class Admin extends User {
 	 * @param departement
 	 * @param poste
 	 */
-	public Admin(Long id, String email, String motDePasse, String nom, String departement, String poste) {
+	public Admin(int id, String email, String motDePasse, String nom, String departement, String poste) {
 		super(id, email, motDePasse, nom);
 		this.departement = departement;
 		this.poste = poste;
