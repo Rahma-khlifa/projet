@@ -1,8 +1,16 @@
 package com.example.demo.entities;
 
+
 import java.util.List;
 
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+
 
 @Entity
 @Table(name = "etudiants")
@@ -10,12 +18,17 @@ public class Etudiant extends User{
     
     private String niveauEtude;
     private String filiere;
+
     
     @OneToMany(mappedBy = "etudiant", cascade = CascadeType.ALL)
     private List<Probleme> problemes;
     
     @OneToMany(mappedBy = "etudiant", cascade = CascadeType.ALL)
     private List<Reponse> reponses;
+
+    @OneToMany(mappedBy = "auteur", cascade = CascadeType.ALL)
+    private List<Cours> coursAjoutes = new ArrayList<>();
+
 
 	public Etudiant() {
 		super();

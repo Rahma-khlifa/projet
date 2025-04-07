@@ -15,7 +15,7 @@ import lombok.Data;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class User {
 
-	public User(int id, String email, String motDePasse, String nom) {
+	public User(Long id, String email, String motDePasse, String nom) {
 		super();
 		this.id = id;
 		this.email = email;
@@ -23,11 +23,11 @@ public abstract class User {
 		this.nom = nom;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -57,7 +57,7 @@ public abstract class User {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    private int id;
+    private Long id;
     
     @Column(unique = true, nullable = false)
     private String email;

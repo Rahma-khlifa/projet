@@ -37,7 +37,7 @@ public class ProblemeController {
     
     // Get problems by student ID
     @GetMapping("/etudiant/{etudiantId}")
-    public ResponseEntity<List<Probleme>> getProblemesByEtudiant(@PathVariable int etudiantId) {
+    public ResponseEntity<List<Probleme>> getProblemesByEtudiant(@PathVariable Long etudiantId) {
         return ResponseEntity.ok(etudiantService.getProblemesByEtudiant(etudiantId));
     }
     
@@ -46,7 +46,7 @@ public class ProblemeController {
     public ResponseEntity<Probleme> createProbleme(
             @RequestBody Map<String, Object> payload) {
         
-        int etudiantId = Integer.parseInt(payload.get("etudiantId").toString());
+        Long etudiantId = Long.parseLong(payload.get("etudiantId").toString());
         String titre = payload.get("titre").toString();
         String description = payload.get("description").toString();
         
@@ -66,7 +66,7 @@ public class ProblemeController {
             @PathVariable int problemeId,
             @RequestBody Map<String, Object> payload) {
         
-        int etudiantId = Integer.parseInt(payload.get("etudiantId").toString());
+        Long etudiantId = Long.parseLong(payload.get("etudiantId").toString());
         String contenu = payload.get("contenu").toString();
         
         Reponse reponse = etudiantService.publierReponse(etudiantId, problemeId, contenu);

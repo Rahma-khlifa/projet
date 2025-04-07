@@ -31,8 +31,8 @@ public class EtudiantServiceImpl implements IEtudiantService {
     }
     
     @Override
-    public Etudiant getEtudiantById(int id) {
-        return etudiantRepository.findById(id).orElse(null);
+    public Etudiant getEtudiantById(Long id) {
+        return etudiantRepository.findById(id).get();
     }
     
     @Override
@@ -44,7 +44,7 @@ public class EtudiantServiceImpl implements IEtudiantService {
     // Problem management implementations
     @Override
     @Transactional
-    public Probleme publierProbleme(int etudiantId, String titre, String description) {
+    public Probleme publierProbleme(Long etudiantId, String titre, String description) {
         Etudiant etudiant = etudiantRepository.findById(etudiantId)
             .orElseThrow(() -> new RuntimeException("Etudiant not found with id: " + etudiantId));
         
@@ -65,7 +65,7 @@ public class EtudiantServiceImpl implements IEtudiantService {
     }
     
     @Override
-    public List<Probleme> getProblemesByEtudiant(int etudiantId) {
+    public List<Probleme> getProblemesByEtudiant(Long etudiantId) {
         Etudiant etudiant = etudiantRepository.findById(etudiantId)
             .orElseThrow(() -> new RuntimeException("Etudiant not found with id: " + etudiantId));
         
@@ -75,7 +75,7 @@ public class EtudiantServiceImpl implements IEtudiantService {
     // Response management implementations
     @Override
     @Transactional
-    public Reponse publierReponse(int etudiantId, int problemeId, String contenu) {
+    public Reponse publierReponse(Long etudiantId, int problemeId, String contenu) {
         Etudiant etudiant = etudiantRepository.findById(etudiantId)
             .orElseThrow(() -> new RuntimeException("Etudiant not found with id: " + etudiantId));
             

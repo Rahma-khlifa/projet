@@ -9,17 +9,17 @@ import java.util.List;
 public interface IEtudiantService {
     // User management
     Etudiant saveEtudiant(Etudiant etudiant);
-    Etudiant getEtudiantById(int id);
+    Etudiant getEtudiantById(Long id);
     Etudiant getEtudiantByEmail(String email);
     
     // Problem management
-    Probleme publierProbleme(int etudiantId, String titre, String description);
+    Probleme publierProbleme(Long etudiantId, String titre, String description);
     List<Probleme> getAllProblemes();
     Probleme getProblemeById(int id);
-    List<Probleme> getProblemesByEtudiant(int etudiantId);
+    List<Probleme> getProblemesByEtudiant(Long etudiantId);
     
     // Response management
-    Reponse publierReponse(int etudiantId, int problemeId, String contenu);
+    Reponse publierReponse(Long etudiantId, int problemeId, String contenu);
     List<Reponse> getReponsesByProbleme(int problemeId);
     Reponse getReponseById(int id);
 }
