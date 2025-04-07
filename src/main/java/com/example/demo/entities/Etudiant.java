@@ -1,14 +1,20 @@
 package com.example.demo.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Etudiant extends User{
     
     private String niveauEtude;
     private String filiere;
-    
+    @OneToMany(mappedBy = "auteur", cascade = CascadeType.ALL)
+    private List<Cours> coursAjoutes = new ArrayList<>();
 
 	/**
 	 * 
