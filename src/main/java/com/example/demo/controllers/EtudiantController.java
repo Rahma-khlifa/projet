@@ -17,7 +17,7 @@ public class EtudiantController {
 
     @PostMapping("/ajouter")
     public ResponseEntity<Etudiant> ajouterEtudiant(@RequestBody Etudiant etudiant) {
-        Etudiant savedEtudiant = etudiantService.ajouterEtudiant(etudiant);
+        Etudiant savedEtudiant = etudiantService.saveEtudiant(etudiant);
         return ResponseEntity.ok(savedEtudiant);
     }
 }

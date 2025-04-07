@@ -9,7 +9,7 @@ import com.example.demo.entities.Cours;
 import com.example.demo.entities.Etudiant;
 
 public interface CoursService {
-
+   /* est ce que on peut eliminer letudiantId ou nn */
     public  Cours ajouterCours(String titre, String description, MultipartFile file, Long etudiantId) throws IOException;
 
     public List<Cours> getAllCours();

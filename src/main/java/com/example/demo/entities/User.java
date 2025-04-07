@@ -14,13 +14,7 @@ import lombok.Data;
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class User {
-    
-    /**
-	 * @param id
-	 * @param email
-	 * @param motDePasse
-	 * @param nom
-	 */
+
 	public User(Long id, String email, String motDePasse, String nom) {
 		super();
 		this.id = id;
