@@ -28,6 +28,11 @@ public class Reponse {
     @JsonIgnore // Empêche la boucle infinie
     private Etudiant etudiant;
     
+    @ManyToOne
+    @JoinColumn(name = "professeur_id")
+    @JsonIgnore
+    private Professeur professeur;
+    
     // Constructors
     public Reponse() {
         this.dateReponse = new Date();
@@ -77,5 +82,22 @@ public class Reponse {
     
     public void setEtudiant(Etudiant etudiant) {
         this.etudiant = etudiant;
+    }
+    
+    public Professeur getProfesseur() {
+        return professeur;
+    }
+    
+    public void setProfesseur(Professeur professeur) {
+        this.professeur = professeur;
+    }
+    
+    // Méthode pour savoir si la réponse vient d'un étudiant ou d'un professeur
+    public boolean estReponseEtudiant() {
+        return this.etudiant != null;
+    }
+    
+    public boolean estReponseProfesseur() {
+        return this.professeur != null;
     }
 }

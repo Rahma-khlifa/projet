@@ -12,5 +12,6 @@ public interface CoursRepository extends JpaRepository <Cours,Long> {
 	List<Cours> findByAuteurId(Long etudiantId);
     List<Cours> findAllByOrderByTitreAsc();
     List<Cours> findByTitre(String titre);
+	List<Cours> findByProfesseurId(int professeurId);
 
 }
