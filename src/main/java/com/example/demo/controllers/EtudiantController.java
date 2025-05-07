@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.entities.*;
+import com.example.demo.repositories.EtudiantRepository;
 import com.example.demo.services.IEtudiantService;
 import com.example.demo.services.IProfesseurService;
 
@@ -27,11 +28,20 @@ public class EtudiantController {
         this.etudiantService = etudiantService;
     }
     
+    @Autowired
+    private EtudiantRepository etudiantRepository;
+    
     // CRUD de base pour Etudiant
     
-    @GetMapping
+    @GetMapping("/tous")
     public ResponseEntity<List<Etudiant>> getAllEtudiants() {
         List<Etudiant> etudiants = etudiantService.getAllEtudiants();
+        return new ResponseEntity<>(etudiants, HttpStatus.OK);
+    }
+    
+    @GetMapping
+    public ResponseEntity<List<Etudiant>> getEtudiants() {
+        List<Etudiant> etudiants = etudiantRepository.findAll();
         return new ResponseEntity<>(etudiants, HttpStatus.OK);
     }
     

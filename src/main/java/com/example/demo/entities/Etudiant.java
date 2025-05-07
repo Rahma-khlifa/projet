@@ -32,6 +32,8 @@ public class Etudiant extends User {
     @OneToMany(mappedBy = "etudiant", cascade = CascadeType.ALL)
     private List<RendezVous> rendezVous = new ArrayList<>();
 
+    private boolean isEmailVerified; // Champ pour suivre la vérification
+    
     public Etudiant() {
         super();
     }
@@ -127,6 +129,14 @@ public class Etudiant extends User {
 
 	public RendezVous demanderRdv(Professeur p1, String string, String string2) {
 		return null;
+	}
+
+	public boolean isEmailVerified() {
+		return isEmailVerified;
+	}
+
+	public void setEmailVerified(boolean isEmailVerified) {
+		this.isEmailVerified = isEmailVerified;
 	}
 
 }

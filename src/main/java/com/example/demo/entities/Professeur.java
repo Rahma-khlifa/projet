@@ -37,6 +37,7 @@ public class Professeur {
     @JsonIgnore
     private List<RendezVous> rendezVous;
     
+    private boolean isEmailVerified; // Champ pour suivre la vérification
     // Constructeurs
     public Professeur() {
     }
@@ -129,5 +130,13 @@ public class Professeur {
 
 	public Reponse repondreProbleme(Probleme probleme1, String string) {
 		return null;
+	}
+
+	public boolean isEmailVerified() {
+		return isEmailVerified;
+	}
+
+	public void setEmailVerified(boolean isEmailVerified) {
+		this.isEmailVerified = isEmailVerified;
 	}
 }

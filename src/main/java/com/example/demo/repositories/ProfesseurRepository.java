@@ -10,9 +10,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProfesseurRepository extends JpaRepository<Professeur, Integer> {
     // Trouver un professeur par email
-    Professeur findByEmail(String email);
+	Optional<Professeur> findByEmail(String email);
     Optional<Professeur> findByNom(String nom);
     
     // Trouver des professeurs par spécialité
     java.util.List<Professeur> findBySpecialite(String specialite);
+    java.util.List<Professeur> findByIsEmailVerifiedTrue();
 }

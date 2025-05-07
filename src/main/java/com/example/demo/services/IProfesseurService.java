@@ -29,4 +29,9 @@ public interface IProfesseurService {
     List<RendezVous> getRendezVousByProfesseur(int professeurId);
     RendezVous organiserRdv(int professeurId, int etudiantId, String sujet);
     RendezVous updateRendezVousStatus(Integer rdvId, String status);
+    
+    //logIn and signUp
+    Professeur signup(Professeur professeur);
+    Professeur login(String email, String motDePasse);
+    boolean verifyEmailToken(String token);
 }

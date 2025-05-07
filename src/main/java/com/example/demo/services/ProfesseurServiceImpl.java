@@ -174,4 +174,22 @@ public class ProfesseurServiceImpl implements IProfesseurService {
     public List<RendezVous> getRendezVousByProfesseur(int professeurId) {
         return rendezVousRepository.findByProfesseurId(professeurId);
     }
+
+	@Override
+	public Professeur signup(Professeur professeur) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Professeur login(String email, String motDePasse) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean verifyEmailToken(String token) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

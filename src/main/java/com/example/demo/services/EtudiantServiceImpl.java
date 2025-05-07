@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EtudiantServiceImpl implements IEtudiantService {
@@ -65,7 +66,7 @@ public class EtudiantServiceImpl implements IEtudiantService {
     }
     
     @Override
-    public Etudiant getEtudiantByEmail(String email) {
+    public Optional<Etudiant> getEtudiantByEmail(String email) {
         return etudiantRepository.findByEmail(email);
     }
     @Override
@@ -212,6 +213,24 @@ public class EtudiantServiceImpl implements IEtudiantService {
     public List<Annonce> getAnnoncesByProfesseur(int professeurId) {
         return annonceRepository.findByProfesseurId(professeurId);
     }
+
+	@Override
+	public Etudiant signup(Etudiant etudiant) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Etudiant login(String email, String motDePasse) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean verifyEmailToken(String token) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
     
 }

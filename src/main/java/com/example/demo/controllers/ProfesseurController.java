@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.entities.*;
+import com.example.demo.repositories.EtudiantRepository;
 import com.example.demo.services.IProfesseurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,16 +17,25 @@ import java.util.List;
 public class ProfesseurController {
 
     private final IProfesseurService professeurService;
+    
+    @Autowired
+    private EtudiantRepository etudiantRepository;
 
     @Autowired
     public ProfesseurController(IProfesseurService professeurService) {
         this.professeurService = professeurService;
     }
 
-    @GetMapping
+    @GetMapping("/tous")
     public ResponseEntity<List<Professeur>> getAllProfesseurs() {
         List<Professeur> professeurs = professeurService.getAllProfesseurs();
         return new ResponseEntity<>(professeurs, HttpStatus.OK);
+    }
+    
+    @GetMapping
+    public ResponseEntity<List<Etudiant>> getEtudiants() {
+        List<Etudiant> etudiants = etudiantRepository.findByIsEmailVerifiedTrue();
+        return new ResponseEntity<>(etudiants, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

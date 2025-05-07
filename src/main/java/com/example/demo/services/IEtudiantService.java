@@ -9,6 +9,7 @@ import com.example.demo.entities.Reponse;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,7 +17,7 @@ public interface IEtudiantService {
     // User management
     Etudiant saveEtudiant(Etudiant etudiant);
     Etudiant getEtudiantById(Long id);
-    Etudiant getEtudiantByEmail(String email);
+    Optional<Etudiant> getEtudiantByEmail(String email);
 	List<Etudiant> getAllEtudiants();
 	void deleteEtudiant(Long id);
     
@@ -47,6 +48,10 @@ public interface IEtudiantService {
     List<Annonce> getAllAnnonces();
     List<Annonce> getAnnoncesByProfesseur(int professeurId);
 
+    //signUp and logIn
+    Etudiant signup(Etudiant etudiant);
+    Etudiant login(String email, String motDePasse);
+    boolean verifyEmailToken(String token);
 
 	
 }
