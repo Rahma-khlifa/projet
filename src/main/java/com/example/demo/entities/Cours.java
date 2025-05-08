@@ -31,6 +31,7 @@ public class Cours {
 
     @ManyToOne
     @JoinColumn(name = "auteur_id")
+    @JsonIgnore
     private Etudiant auteur; // Relation auteur (un étudiant qui a créé le cours)
 
     @ManyToOne

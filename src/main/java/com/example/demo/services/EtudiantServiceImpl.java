@@ -142,7 +142,7 @@ public class EtudiantServiceImpl implements IEtudiantService {
     public Cours ajouterCours(Long etudiantId, String titre, String contenu, MultipartFile file) throws IOException {
         Cours cours = new Cours();
         cours.setTitre(titre);
-        cours.setContenu(contenu); // Note : utilise "contenu" au lieu de "description" pour respecter ton modèle
+        cours.setContenu(contenu); // Correctement utilisé "contenu"
         if (file != null && !file.isEmpty()) {
             byte[] fileContent = file.getBytes();
             cours.setFichierPdf(fileContent);
@@ -154,6 +154,10 @@ public class EtudiantServiceImpl implements IEtudiantService {
                 .orElseThrow(() -> new RuntimeException("Étudiant non trouvé avec id : " + etudiantId));
         etudiant.getCours().add(savedCours);
         etudiantRepository.save(etudiant);
+
+        // Associer l'étudiant comme auteur du cours
+        savedCours.setAuteur(etudiant);
+        coursRepository.save(savedCours); // Sauvegarder à nouveau pour mettre à jour l'auteur
 
         return savedCours;
     }

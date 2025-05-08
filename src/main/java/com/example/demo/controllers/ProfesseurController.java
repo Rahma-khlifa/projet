@@ -3,6 +3,9 @@ package com.example.demo.controllers;
 import com.example.demo.entities.*;
 import com.example.demo.repositories.EtudiantRepository;
 import com.example.demo.services.IProfesseurService;
+
+import jakarta.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -146,5 +149,12 @@ public class ProfesseurController {
     public ResponseEntity<List<RendezVous>> getRendezVousByProfesseur(@PathVariable int id) {
         List<RendezVous> rendezVous = professeurService.getRendezVousByProfesseur(id);
         return new ResponseEntity<>(rendezVous, HttpStatus.OK);
+    }
+    
+ // Déconnexion d'un professeur
+    @PostMapping("/{id}/logout")
+    public ResponseEntity<Void> logoutProfesseur(@PathVariable Long id, HttpSession session) {
+        session.invalidate(); // Invalider la session
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

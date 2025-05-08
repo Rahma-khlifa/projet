@@ -3,6 +3,8 @@ package com.example.demo.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -22,6 +24,7 @@ public class Etudiant extends User {
     private List<Cours> coursAjoutes = new ArrayList<>();
 
     @ManyToMany
+    @JsonIgnore
     @JoinTable(
         name = "etudiant_cours",
         joinColumns = @JoinColumn(name = "etudiant_id"),

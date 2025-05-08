@@ -1,10 +1,12 @@
 package com.example.demo.controllers;
 
 import com.example.demo.entities.*;
+import com.example.demo.repositories.CoursRepository;
 import com.example.demo.repositories.EtudiantRepository;
 import com.example.demo.services.IEtudiantService;
 import com.example.demo.services.IProfesseurService;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,9 @@ public class EtudiantController {
     
     @Autowired
     private EtudiantRepository etudiantRepository;
+    
+    @Autowired
+    private CoursRepository coursrepository;
     
     // CRUD de base pour Etudiant
     
@@ -88,6 +93,13 @@ public class EtudiantController {
         etudiantRepository.save(etudiant);
         return new ResponseEntity<>(cours, HttpStatus.CREATED);
     }
+    
+    @GetMapping("/cours")
+    public ResponseEntity<List<Cours>> getAllCours() {
+        List<Cours> cours = coursrepository.findAll();
+        return new ResponseEntity<>(cours, HttpStatus.OK);
+    }
+    
     // Consulter tous les cours (déjà dans CoursController)
     @GetMapping("/{id}/cours")
     public ResponseEntity<List<Cours>> getCoursByEtudiant(@PathVariable Long id) {
@@ -121,12 +133,10 @@ public class EtudiantController {
     @PostMapping("/{id}/problemes")
     public ResponseEntity<Probleme> publierProbleme(
             @PathVariable Long id,
-            @RequestParam String titre,
-            @RequestParam String description) {
-        Probleme probleme = etudiantService.publierProbleme(id, titre, description);
-        return new ResponseEntity<>(probleme, HttpStatus.CREATED);
+            @RequestBody Probleme probleme) { // Changé de @RequestParam à @RequestBody
+        Probleme createdProbleme = etudiantService.publierProbleme(id, probleme.getTitre(), probleme.getDescription());
+        return new ResponseEntity<>(createdProbleme, HttpStatus.CREATED);
     }
-
     // Consulter tous les problèmes
     @GetMapping("/problemes")
     public ResponseEntity<List<Probleme>> getAllProblemes() {
@@ -194,5 +204,12 @@ public class EtudiantController {
     public ResponseEntity<List<Annonce>> getAnnoncesByProfesseur(@PathVariable int professeurId) {
         List<Annonce> annonces = etudiantService.getAnnoncesByProfesseur(professeurId);
         return new ResponseEntity<>(annonces, HttpStatus.OK);
+    }
+    
+ // Déconnexion d'un étudiant
+    @PostMapping("/{id}/logout")
+    public ResponseEntity<Void> logoutEtudiant(@PathVariable Long id, HttpSession session) {
+        session.invalidate(); // Invalider la session
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
