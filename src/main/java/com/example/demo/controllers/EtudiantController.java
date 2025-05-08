@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/etudiants")
 public class EtudiantController {
@@ -76,17 +78,21 @@ public class EtudiantController {
     // Ajouter un cours
     @PostMapping("/{id}/cours")
     public ResponseEntity<Cours> ajouterCours(
+            @PathVariable Long id,
             @RequestParam String titre,
             @RequestParam String contenu,
             @RequestParam(required = false) MultipartFile file) throws IOException {
-        Cours cours = etudiantService.ajouterCours(titre, contenu, file);
+        Etudiant etudiant = etudiantService.getEtudiantById(id); // Vérifie que l'étudiant existe
+        Cours cours = etudiantService.ajouterCours( id, titre, contenu, file);
+        etudiant.getCours().add(cours); // Associe le cours à l'étudiant via la relation many-to-many
+        etudiantRepository.save(etudiant);
         return new ResponseEntity<>(cours, HttpStatus.CREATED);
     }
-
     // Consulter tous les cours (déjà dans CoursController)
-    @GetMapping("/cours")
-    public ResponseEntity<List<Cours>> getAllCours() {
-        List<Cours> cours = etudiantService.getAllCours();
+    @GetMapping("/{id}/cours")
+    public ResponseEntity<List<Cours>> getCoursByEtudiant(@PathVariable Long id) {
+        Etudiant etudiant = etudiantService.getEtudiantById(id);
+        List<Cours> cours = new ArrayList<>(etudiant.getCours()); // Récupère les cours via la relation
         return new ResponseEntity<>(cours, HttpStatus.OK);
     }
 

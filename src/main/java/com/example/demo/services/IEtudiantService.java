@@ -33,7 +33,6 @@ public interface IEtudiantService {
     Reponse getReponseById(int id);
 
     // Course management (fusionné depuis CoursService)
-    Cours ajouterCours(String titre, String description, MultipartFile file) throws IOException;
     List<Cours> getAllCours();
     Cours getCoursById(Long id);
     void supprimerCours(Long id);
@@ -52,6 +51,7 @@ public interface IEtudiantService {
     Etudiant signup(Etudiant etudiant);
     Etudiant login(String email, String motDePasse);
     boolean verifyEmailToken(String token);
+	Cours ajouterCours(Long etudiantId, String titre, String contenu, MultipartFile file) throws IOException;
 
 	
 }

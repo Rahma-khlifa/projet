@@ -5,16 +5,17 @@ import com.example.demo.repositories.EtudiantRepository;
 import com.example.demo.repositories.ProfesseurRepository;
 import com.example.demo.services.AuthService;
 import lombok.RequiredArgsConstructor;
-
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.Map;
+import java.util.Optional;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/auth")
+@RequiredArgsConstructor
 public class AuthController {
 
     @Autowired
@@ -29,23 +30,24 @@ public class AuthController {
     @Autowired
     private ProfesseurRepository professeurRepository;
 
-    @PostMapping("/signup/etudiant")
-    public ResponseEntity<Etudiant> signupEtudiant(@RequestBody Etudiant etudiant) {
-        Etudiant savedEtudiant = authService.signupEtudiant(etudiant);
-        return new ResponseEntity<>(savedEtudiant, HttpStatus.CREATED);
-    }
-
-    @PostMapping("/signup/professeur")
-    public ResponseEntity<Professeur> signupProfesseur(@RequestBody Professeur professeur) {
-        Professeur savedProfesseur = authService.signupProfesseur(professeur);
-        return new ResponseEntity<>(savedProfesseur, HttpStatus.CREATED);
+    @PostMapping("/process")
+    public ResponseEntity<?> processAuth(@RequestBody Map<String, String> request) {
+        try {
+            Map<String, String> response = authService.processAuth(request);
+            if (request.get("action").equalsIgnoreCase("signup")) {
+                return ResponseEntity.status(HttpStatus.CREATED).body(response.get("message"));
+            }
+            return ResponseEntity.ok(response);
+        } catch (RuntimeException e) {
+            System.out.println("Erreur: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 
     @GetMapping("/verify-email")
     public ResponseEntity<String> verifyEmail(@RequestParam("token") String token) {
         String email = jwtUtil.getEmailFromToken(token);
         if (jwtUtil.validateToken(token, email)) {
-            // Vérifier si c'est un étudiant ou un professeur
             Optional<Etudiant> etudiantOpt = etudiantRepository.findByEmail(email);
             if (etudiantOpt.isPresent()) {
                 Etudiant etudiant = etudiantOpt.get();

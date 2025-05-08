@@ -138,16 +138,24 @@ public class EtudiantServiceImpl implements IEtudiantService {
 
     // Course management implementations (fusionnées depuis CoursServiceImpl)
     @Override
-    public Cours ajouterCours(String titre, String description, MultipartFile file) throws IOException {
+    @Transactional
+    public Cours ajouterCours(Long etudiantId, String titre, String contenu, MultipartFile file) throws IOException {
         Cours cours = new Cours();
         cours.setTitre(titre);
-        cours.setDescription(description); // Note : dans ton diagramme UML, l'attribut est "contenu", mais ici c'est "description". Assure-toi de la cohérence.
+        cours.setContenu(contenu); // Note : utilise "contenu" au lieu de "description" pour respecter ton modèle
         if (file != null && !file.isEmpty()) {
             byte[] fileContent = file.getBytes();
             cours.setFichierPdf(fileContent);
         }
-        // Pas d'association avec un étudiant ici, car on a éliminé etudiantId
-        return coursRepository.save(cours);
+        Cours savedCours = coursRepository.save(cours);
+
+        // Associer le cours à l'étudiant via la relation many-to-many
+        Etudiant etudiant = etudiantRepository.findById(etudiantId)
+                .orElseThrow(() -> new RuntimeException("Étudiant non trouvé avec id : " + etudiantId));
+        etudiant.getCours().add(savedCours);
+        etudiantRepository.save(etudiant);
+
+        return savedCours;
     }
 
     @Override

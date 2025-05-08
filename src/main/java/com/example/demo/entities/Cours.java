@@ -39,6 +39,7 @@ public class Cours {
     private Professeur professeur; // Relation avec un professeur
 
     @ManyToMany(mappedBy = "cours")
+    @JsonIgnore
     private List<Etudiant> etudiants = new ArrayList<>(); // Relation partagerCours (many-to-many avec Etudiant)
 
     // Constructeurs
