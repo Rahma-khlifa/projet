@@ -148,7 +148,7 @@ public class ProfesseurServiceImpl implements IProfesseurService {
     @Transactional
     public Annonce publierAnnonce(int professeurId, String titre, String contenu) {
         Professeur professeur = professeurRepository.findById(professeurId)
-            .orElseThrow(() -> new RuntimeException("Professeur non trouvé avec id : " + professeurId));
+                .orElseThrow(() -> new RuntimeException("Professeur non trouvé avec id : " + professeurId));
 
         Annonce annonce = new Annonce(titre, contenu);
         annonce.setProfesseur(professeur);

@@ -121,9 +121,8 @@ public class ProfesseurController {
     @PostMapping("/{id}/annonces")
     public ResponseEntity<Annonce> publierAnnonce(
             @PathVariable int id,
-            @RequestParam String titre,
-            @RequestParam String contenu) {
-        Annonce newAnnonce = professeurService.publierAnnonce(id, titre, contenu);
+            @RequestBody Annonce annonce) { // Remplace @RequestParam par @RequestBody
+        Annonce newAnnonce = professeurService.publierAnnonce(id, annonce.getTitre(), annonce.getContenu());
         return new ResponseEntity<>(newAnnonce, HttpStatus.CREATED);
     }
 
