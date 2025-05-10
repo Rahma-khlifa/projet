@@ -29,14 +29,14 @@ public class Cours {
     @Lob
     private byte[] fichierPdf; // Pour stocker le fichier PDF
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER) 
     @JoinColumn(name = "auteur_id")
     @JsonIgnore
     private Etudiant auteur; // Relation auteur (un étudiant qui a créé le cours)
 
     @ManyToOne
-    @JoinColumn(name = "professeur_id")
     @JsonIgnore
+    @JoinColumn(name = "professeur_id")
     private Professeur professeur; // Relation avec un professeur
 
     @ManyToMany(mappedBy = "cours")
@@ -112,7 +112,5 @@ public class Cours {
         this.etudiants = etudiants;
     }
 
-	public void setDescription(String description) {
-		
-	}
+
 }

@@ -85,6 +85,13 @@ public class ProfesseurController {
         List<Probleme> problemes = professeurService.consulterProblemes();
         return new ResponseEntity<>(problemes, HttpStatus.OK);
     }
+    
+    @GetMapping("/problemes/{problemeId}/reponses")
+    public ResponseEntity<List<Reponse>> getReponsesByProbleme(@PathVariable int problemeId) {
+        List<Reponse> reponses = professeurService.getReponsesByProbleme(problemeId);
+        return new ResponseEntity<>(reponses, HttpStatus.OK);
+    }
+
 
     @GetMapping("/{id}/problemes")
     public ResponseEntity<List<Probleme>> consulterProblemes(@PathVariable int id) {

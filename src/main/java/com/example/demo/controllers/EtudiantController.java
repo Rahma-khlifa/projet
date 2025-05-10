@@ -5,6 +5,7 @@ import com.example.demo.repositories.CoursRepository;
 import com.example.demo.repositories.EtudiantRepository;
 import com.example.demo.services.IEtudiantService;
 import com.example.demo.services.IProfesseurService;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;

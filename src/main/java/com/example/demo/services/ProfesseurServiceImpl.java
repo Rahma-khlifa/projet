@@ -115,6 +115,15 @@ public class ProfesseurServiceImpl implements IProfesseurService {
         reponse.setProbleme(probleme);
         return reponseRepository.save(reponse);
     }
+    
+    @Override
+    public List<Reponse> getReponsesByProbleme(int problemeId) {
+        Probleme probleme = problemeRepository.findById(problemeId)
+            .orElseThrow(() -> new RuntimeException("Problème non trouvé avec id : " + problemeId));
+            
+        return reponseRepository.findByProblemeOrderByDateReponseDesc(probleme);
+    }
+    
 
     @Override
     @Transactional

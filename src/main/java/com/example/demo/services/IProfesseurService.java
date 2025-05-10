@@ -34,4 +34,5 @@ public interface IProfesseurService {
     Professeur signup(Professeur professeur);
     Professeur login(String email, String motDePasse);
     boolean verifyEmailToken(String token);
+	List<Reponse> getReponsesByProbleme(int problemeId);
 }
